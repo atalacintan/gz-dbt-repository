@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT
 op.date_date
 , SUM(total_revenue_per_order) as toplam_kar
