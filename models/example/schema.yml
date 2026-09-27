@@ -1,21 +1,39 @@
-
 version: 2
 
-models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
+sources:
+  - name: raw 
+    schema: gz_raw_data
+    description: raw tables
+    tables: 
+      - name: sales
+        identifier: raw_gz_sales
+        description: sales data for greenwiz 
+        columns:
+          - name: orders_id
+            description: unique id of the order
             tests:
-                - unique
-                - not_null
-
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+              - not_null
+              - unique: 
+                  arguments:
+                      column_name: "orders_id || '-' || pdt_id"
+            
+              
+              
+      - name: product
+        identifier: raw_gz_product
+        description: products data for greenwiz 
+        columns:
+          - name: products_id
+            description: unique id of the product
+            tests: 
+              - unique
+              - not_null
+      - name: ship
+        identifier: raw_gz_ship
+        description: shipment data for greenwiz 
+        columns:
+          - name: orders_id
+            description: unique id of the order of shipment
+            tests: 
+              - unique
+              - not_null
