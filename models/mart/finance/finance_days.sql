@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+
 
 SELECT
 op.date_date
@@ -12,3 +12,4 @@ FROM {{ref("int_orders_operational")}} as op
 JOIN {{ref("int_orders_margin")}} as mg
 ON op.orders_id = mg.orders_id
 GROUP BY op.date_date
+
